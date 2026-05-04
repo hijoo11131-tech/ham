@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>햄버거 무한 먹방</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        }
+
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .hamburger-image {
+            width: 100%;
+            max-width: 500px;
+            cursor: pointer;
+            touch-action: manipulation;
+        }
+
+        .hamburger-image img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: contain;
+        }
+
+        .reset-counter {
+            display: none;
+            position: fixed;
+            top: 12px;
+            left: 12px;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.9);
+            color: #000;
+            font-size: 1rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+            pointer-events: none;
+        }
+
+        @media (max-width: 600px) {
+            .hamburger-image {
+                max-width: none;
+                height: 80vh;
+            }
+
+            .reset-counter {
+                display: flex;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="reset-counter" id="resetCounter">0</div>
+    <div class="wrapper">
+        <div class="hamburger-image" onclick="eatBurger()">
+            <img id="burgerImage" src="https://cdn.discordapp.com/attachments/1500557831705989209/1500558988477989016/IMG_0569.png?ex=69f8dff5&is=69f78e75&hm=d55aa3681e8ad4aada10541ad472e2e72db3e0632f89ef266a72c130174e7fb0&" alt="햄버거">
+        </div>
+    </div>
+
+    <script>
+        const burgerImages = [
+            'https://cdn.discordapp.com/attachments/1500557831705989209/1500558988477989016/IMG_0569.png?ex=69f8dff5&is=69f78e75&hm=d55aa3681e8ad4aada10541ad472e2e72db3e0632f89ef266a72c130174e7fb0&',
+            'https://cdn.discordapp.com/attachments/1500557831705989209/1500684659573657661/IMG_0570.png?ex=69f95500&is=69f80380&hm=44753e7faf7ed48c7bb228742825f157fae68683835e6c0b948290f6d33a84d6&',
+            'https://cdn.discordapp.com/attachments/1500557831705989209/1500559006735798493/IMG_0571.png?ex=69f8dffa&is=69f78e7a&hm=80698c57a662a7953df8f65425e66fec093522fa922851a5aab02aedd94c155d&',
+            'https://cdn.discordapp.com/attachments/1500557831705989209/1500559014612959232/IMG_0572.png?ex=69f8dffc&is=69f78e7c&hm=8c291f0ffdf93ae203be244f48edd271cd198c9ee48af2ffa167bd63074c2cb0&',
+            'https://cdn.discordapp.com/attachments/1500557831705989209/1500559989884977252/IMG_0573.png?ex=69f8e0e4&is=69f78f64&hm=6dd0797c57754e7d8ed7a8ee47ed0d4bbcc048630c8afe0f3525432ed53ed3fd&'
+        ];
+
+        let currentStage = 0;
+        let resetCount = 0;
+
+        function updateResetCounter() {
+            document.getElementById('resetCounter').textContent = resetCount;
+        }
+
+        function eatBurger() {
+            currentStage = (currentStage + 1) % burgerImages.length;
+            if (currentStage === 0) {
+                resetCount++;
+                updateResetCounter();
+            }
+            document.getElementById('burgerImage').src = burgerImages[currentStage];
+        }
+    </script>
+</body>
+</html>
